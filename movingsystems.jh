@@ -1,0 +1,160 @@
+/**
+ * The Employee entity.
+ */
+entity Employee {
+	firstName String required,
+	lastName String required,
+	email String required,
+    displayName String,
+	primaryPhoneNumber String,
+    secondaryPhoneNumber String
+}
+
+entity Owner {
+	firstName String required,
+	lastName String required,
+	email String required,
+    displayName String,
+	primaryPhoneNumber String,
+    secondaryPhoneNumber String
+}
+
+entity Customer {
+	firstName String required,
+    lastName String required,
+    email String required,
+    displayName String,
+    primaryPhoneNumber String,
+    secondaryPhoneNumber String
+}
+
+entity Company {
+	companyName String
+}
+
+entity Role {
+	roleTitle Title,
+	canDrive Boolean,
+	canLead Boolean
+}
+
+enum Title {
+	MOVER, DRIVER, ASST_LEAD, LEADER, ADMIN
+}
+
+entity TimeOff {
+	startDateTime ZonedDateTime,
+    endDateTime ZonedDateTime,
+    comments String
+}
+
+entity Address {
+	street1 String required,
+    street2 String,
+    street3 String,
+    city String required,
+    zipcode String required,
+    state String required
+}
+
+entity Leg {
+	distance Integer,
+    startDateTime ZonedDateTime,
+    endDateTime ZonedDateTime
+    duration Integer,
+    comments String,
+    supervisionRequired Boolean
+}
+
+entity Cargo {
+	description String,
+    weight Integer,
+    height Integer,
+    width Integer,
+    depth Integer,
+    fragile Boolean,
+    type Type
+}
+
+enum Type {
+	BOX, LAMP, BEDFRAME, MATTRESS, CHAIR, TABLE, GARMENT
+}
+
+entity Job {
+	name String,
+    comments String,
+    startDate ZonedDateTime,
+    endDate ZonedDateTime
+}
+
+entity Truck {
+	name String,
+    description String,
+    make String,
+    model String,
+    year String
+}
+
+entity TruckUsage {
+	distance Integer,
+    startDate ZonedDateTime,
+    endDate ZonedDateTime
+    duration Integer,
+    status Status
+}
+
+enum Status {
+	RESERVED, IN_PROGRESS, COMPLETED
+}
+
+entity Maintenance {
+	description String,
+    date ZonedDateTime
+}
+
+entity Quote {
+	name String,
+    description String,
+    quoteDate ZonedDateTime
+}
+
+relationship OneToOne {
+	Employee{role} to Role,
+    Employee{address} to Address,
+    Leg{startAddress} to Address,
+    Leg{endAddress} to Address,
+    TruckUsage{driver} to Employee,
+    Customer{mailingAddress} to Address,
+    Quote{customer} to Customer,
+    Quote{job} to Job
+}
+
+relationship OneToMany {
+	Owner{customer} to Customer,
+    Owner{employee} to Employee,
+	Customer{addressHistory} to Address,
+    Employee{timeOff} to TimeOff,
+    Job{leg} to Leg,
+    Customer{job} to Job,
+    Leg{cargo} to Cargo,
+    Leg{truck} to Truck,
+    Truck{maintenanceHistory} to Maintenance,
+    Truck{usageHistory} to TruckUsage,
+    TruckUsage{passenger} to Employee,
+    Customer{quoteHistory} to Quote,
+    Customer{jobHistory} to Job,
+    Truck{reservation} to TruckUsage
+}
+
+
+
+// Set pagination options
+paginate Company, Employee, Owner, Customer, Job, Leg, Cargo, Truck, TruckUsage, Quote, Maintenance with infinite-scroll
+paginate Role, TimeOff with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Role, Company, Owner
+// Set an angular suffix
+angularSuffix * with mySuffix
