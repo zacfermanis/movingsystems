@@ -1,77 +1,180 @@
-# movingsystems
+# Moving Systems
 
-This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
+<div align="center">
+  <img src="Moving_Systems_logo.png" alt="Moving Systems Logo" width="300"/>
+</div>
 
-## Development
+## About
+
+Moving Systems is a comprehensive web application designed to streamline and manage moving operations. Built with modern technologies, this platform provides a robust foundation for managing moving services, customer relationships, and operational workflows.
+
+## Technology Stack
+
+### Backend
+- **Spring Boot** - Java-based application framework
+- **Spring Security** - Authentication and authorization
+- **Spring Data JPA** - Data persistence layer
+- **Hibernate** - Object-relational mapping
+- **Liquibase** - Database migration and versioning
+- **Maven** - Build automation and dependency management
+
+### Frontend
+- **AngularJS** - JavaScript framework for dynamic web applications
+- **Bootstrap** - Responsive UI framework
+- **Gulp** - Build system and task automation
+- **Bower** - Frontend package management
+
+### Development & Testing
+- **JHipster** - Application generator and scaffolding
+- **Karma & Jasmine** - JavaScript testing framework
+- **Gatling** - Performance testing
+- **Jenkins** - Continuous Integration
+
+## Prerequisites
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+1. **[Node.js][]** (v4.3+) - Required for frontend build tools and development server
+2. **[Java 8+][]** - Required for Spring Boot application
+3. **[Maven][]** - Build automation (included with project via Maven wrapper)
 
-After installing Node, you should be able to run the following command to install development tools (like
-[Bower][] and [BrowserSync][]). You will only need to run this command when dependencies change in package.json.
+## Quick Start
 
-    npm install
+### 1. Install Dependencies
 
-We use [Gulp][] as our build system. Install the Gulp command-line tool globally with:
+Install Node.js dependencies (including Bower and Gulp):
 
-    npm install -g gulp
+```bash
+npm install
+```
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+### 2. Start Development Environment
 
-    ./mvnw
-    gulp
+Run the following commands in two separate terminals for a complete development experience:
 
-Bower is used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in `bower.json`. You can also run `bower update` and `bower install` to manage dependencies.
-Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
+**Terminal 1 - Backend Server:**
+```bash
+./mvnw
+```
 
+**Terminal 2 - Frontend Development Server:**
+```bash
+gulp
+```
 
-## Building for production
+The application will be available at:
+- **Local**: http://127.0.0.1:8080
+- **External**: http://[your-ip]:8080
 
-To optimize the movingsystems client for production, run:
+## Development Workflow
 
-    ./mvnw -Pprod clean package
+### Frontend Development
+- **Auto-refresh**: Browser automatically refreshes when files change
+- **Live reload**: CSS changes are applied instantly
+- **Build optimization**: Gulp handles concatenation, minification, and optimization
 
-This will concatenate and minify CSS and JavaScript files. It will also modify `index.html` so it references
-these new files.
+### Backend Development
+- **Hot reload**: Spring Boot DevTools enable automatic restart on code changes
+- **Database migrations**: Liquibase manages schema changes
+- **Profile management**: Separate configurations for dev, prod, and cloud environments
 
-To ensure everything worked, run:
+## Building for Production
 
-    java -jar target/*.war
+To create an optimized production build:
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+```bash
+./mvnw -Pprod clean package
+```
+
+This will:
+- Concatenate and minify CSS and JavaScript files
+- Optimize images and assets
+- Generate a production-ready WAR file
+
+### Running Production Build
+
+```bash
+java -jar target/*.war
+```
+
+Navigate to [http://localhost:8080](http://localhost:8080) to access the application.
 
 ## Testing
 
-Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in `src/test/javascript/` and can be run with:
+### Unit Tests
+JavaScript unit tests are located in `src/test/javascript/` and can be run with:
 
-    gulp test
+```bash
+gulp test
+```
 
+### Performance Tests
+Gatling performance tests are located in `src/test/gatling` and can be run with:
 
+```bash
+./mvnw gatling:execute
+```
 
-Performance tests are run by [Gatling]() and written in Scala. They're located in `src/test/gatling` and can be run with:
+## Project Structure
 
-    ./mvnw gatling:execute
+```
+movingsystems/
+├── src/
+│   ├── main/
+│   │   ├── java/com/movingsystems/    # Backend Java code
+│   │   ├── resources/                 # Configuration files
+│   │   └── webapp/                    # Frontend Angular application
+│   └── test/                          # Test files
+├── Moving_Systems_logo.png            # Project logo
+├── README.md                          # This file
+└── package.json                       # Node.js dependencies
+```
 
-    
+## Configuration
+
+### Application Profiles
+- **dev**: Development environment with hot reload and debugging
+- **prod**: Production environment with optimizations
+- **cloud**: Cloud deployment configuration
+
+### Key Configuration Files
+- `src/main/resources/config/application.yml` - Main application configuration
+- `src/main/resources/config/application-dev.yml` - Development-specific settings
+- `src/main/resources/config/application-prod.yml` - Production-specific settings
+
 ## Continuous Integration
 
-To setup this project in Jenkins, use the following configuration:
+The project includes Jenkins configuration for automated builds:
 
-* Project name: `movingsystems`
-* Source Code Management
-    * Git Repository: `git@github.com:xxxx/movingsystems.git`
-    * Branches to build: `*/master`
-    * Additional Behaviours: `Wipe out repository & force clone`
-* Build Triggers
-    * Poll SCM / Schedule: `H/5 * * * *`
-* Build
-    * Invoke Maven / Tasks: `-Pprod clean package`
-* Post-build Actions
-    * Publish JUnit test result report / Test Report XMLs: `build/test-results/*.xml`
+- **Project name**: `movingsystems`
+- **Build triggers**: Poll SCM every 5 minutes
+- **Build steps**: Maven production build
+- **Post-build**: JUnit test result publishing
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Support
+
+For questions and support:
+- Check the [JHipster documentation](https://jhipster.github.io/)
+- Review the application logs
+- Contact the development team
+
+## License
+
+This project is proprietary software developed for Moving Systems.
+
+---
+
+<div align="center">
+  <em>Built with ❤️ using JHipster</em>
+</div>
 
 [JHipster]: https://jhipster.github.io/
 [Gatling]: http://gatling.io/
@@ -82,3 +185,5 @@ To setup this project in Jenkins, use the following configuration:
 [Karma]: http://karma-runner.github.io/
 [Jasmine]: http://jasmine.github.io/2.0/introduction.html
 [Protractor]: https://angular.github.io/protractor/
+[Java 8+]: https://www.oracle.com/java/technologies/javase-downloads.html
+[Maven]: https://maven.apache.org/
